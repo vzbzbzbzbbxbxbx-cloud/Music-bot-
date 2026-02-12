@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By Certified Coders © 2025
 import asyncio
 import os
 from datetime import datetime, timedelta
@@ -38,23 +38,28 @@ from AnnieXMedia.utils.errors import capture_internal_err
 autoend = {}
 counter = {}
 
+from pytgcalls.types import AudioQuality, VideoQuality, MediaStream
+
 def dynamic_media_stream(path: str, video: bool = False, ffmpeg_params: str = None) -> MediaStream:
+
+    BASE_FLAGS = "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5"
+
     if video:
         return MediaStream(
             media_path=path,
-            audio_parameters=AudioQuality.HIGH,
-            video_parameters=VideoQuality.HD_720p,
+            audio_parameters=AudioQuality(128_000),
+            video_parameters=VideoQuality.SD_480p,
             audio_flags=MediaStream.Flags.REQUIRED,
             video_flags=MediaStream.Flags.REQUIRED,
-            ffmpeg_parameters=ffmpeg_params,
-        )
+            ffmpeg_parameters=f"{BASE_FLAGS} -vf scale=640:360 -r 24 -g 48 -preset veryfast -b:v 700k -maxrate 900k -bufsize 1400k"
+            )
     else:
         return MediaStream(
             media_path=path,
-            audio_parameters=AudioQuality.HIGH,
+            audio_parameters=AudioQuality(128_000),
             audio_flags=MediaStream.Flags.REQUIRED,
             video_flags=MediaStream.Flags.IGNORE,
-            ffmpeg_parameters=ffmpeg_params,
+            ffmpeg_parameters=f"{BASE_FLAGS} -vn -ar 48000 -ac 2"
         )
 
 async def _clear_(chat_id: int) -> None:
@@ -358,7 +363,25 @@ class Call:
                     return await mystic.edit_text(
                         _["call_6"], disable_web_page_preview=True
                     )
+# ---- FIX: Force proper audio/video container for Telegram VC ----
+                fixed_path = f"{file_path}_fixed.mp4"
 
+                if not os.path.exists(fixed_path):
+                    cmd = (
+                        f'ffmpeg -y -i "{file_path}" '
+                        '-map 0:v? -map 0:a:0 '
+                      ffmpeg_parameters=f"{BASE_FLAGS} -vf scale=640:360 -r 24 -g 48 -preset veryfast -b:v 700k -maxrate 900k -bufsize 1400k -ar 48000 -ac 2"
+                        f'"{fixed_path}"'
+                    )
+                    proc = await asyncio.create_subprocess_shell(
+                        cmd,
+                        stdout=asyncio.subprocess.PIPE,
+                        stderr=asyncio.subprocess.PIPE,
+                    )
+                    await proc.communicate()
+
+                file_path = fixed_path
+                
                 stream = dynamic_media_stream(path=file_path, video=video)
                 try:
                     await client.play(chat_id, stream)
@@ -483,44 +506,4 @@ class Call:
             await self.five.start()
 
     @capture_internal_err
-    async def ping(self) -> str:
-        pings = []
-        if config.STRING1:
-            pings.append(self.one.ping)
-        if config.STRING2:
-            pings.append(self.two.ping)
-        if config.STRING3:
-            pings.append(self.three.ping)
-        if config.STRING4:
-            pings.append(self.four.ping)
-        if config.STRING5:
-            pings.append(self.five.ping)
-        return str(round(sum(pings) / len(pings), 3)) if pings else "0.0"
-
-    @capture_internal_err
-    async def decorators(self) -> None:
-        assistants = list(filter(None, [self.one, self.two, self.three, self.four, self.five]))
-
-        CRITICAL = (
-            ChatUpdate.Status.KICKED
-            | ChatUpdate.Status.LEFT_GROUP
-            | ChatUpdate.Status.CLOSED_VOICE_CHAT
-        )
-
-        async def unified_update_handler(client, update: Update) -> None:
-            if isinstance(update, StreamEnded):
-                if update.stream_type == StreamEnded.Type.AUDIO:
-                    assistant = await group_assistant(self, update.chat_id)
-                    await self.play(assistant, update.chat_id)
-            
-            elif isinstance(update, ChatUpdate):
-                status = update.status
-                if (status & ChatUpdate.Status.LEFT_CALL) or (status & CRITICAL):
-                    await self.stop_stream(update.chat_id)
-                    return
-
-        for assistant in assistants:
-            assistant.on_update()(unified_update_handler)
-
-
-StreamController = Call()
+    async def ping(self) 
