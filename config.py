@@ -10,7 +10,7 @@ load_dotenv()
 # FIXED: Removed getenv wrapper for hardcoded integers
 API_ID = 33632598
 API_HASH = "f5845a1c5a154e4e13747006226e0875"
-BOT_TOKEN = "8472471237:AAGY1oeuJpwEkmXt6d4BTkU6lX0urTQC0jw"
+BOT_TOKEN = "8472471237:AAEeBmQDsMwnoaMDWY0fvAzzXZlOl9qi-Ts"
 
 # FIXED: Added missing parenthesis and removed getenv wrapper
 OWNER_ID = 8368957390
