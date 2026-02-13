@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By Certified Coders © 2025
 import platform
 from sys import version as pyver
 
@@ -135,3 +135,4 @@ async def handle_show_bot_stats(client, callback_query, _):
         objects,
     )
     await _edit_media_or_reply_with_video(callback_query, caption, back_keyboard)
+    
