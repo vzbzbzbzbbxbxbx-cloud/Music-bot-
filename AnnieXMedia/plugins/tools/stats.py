@@ -6,7 +6,7 @@ import psutil
 from pyrogram import __version__ as pyrover
 from pyrogram import filters
 from pyrogram.errors import MessageIdInvalid
-from pyrogram.types import InputMediaVideo, Message
+from pyrogram.types import InputMediaPhoto, Message
 from pytgcalls.__version__ import __version__ as pytgver
 
 import config
@@ -24,13 +24,17 @@ from AnnieXMedia.utils.inline.stats import (
 from config import BANNED_USERS
 
 
-async def _edit_media_or_reply_with_video(cbq, caption: str, reply_markup):
-    media = InputMediaVideo(media=config.STATS_VID_URL, caption=caption)
+from pyrogram.types import InputMediaPhoto, Message
+
+async def _edit_media_or_reply_with_photo(cbq, caption: str, reply_markup):
     try:
-        await cbq.edit_message_media(media=media, reply_markup=reply_markup)
+        await cbq.edit_message_media(
+            media=InputMediaPhoto(media=config.STATS_IMG_URL, caption=caption),
+            reply_markup=reply_markup,
+        )
     except MessageIdInvalid:
-        await cbq.message.reply_video(
-            video=config.STATS_VID_URL, caption=caption, reply_markup=reply_markup
+        await cbq.message.reply_photo(
+            photo=config.STATS_IMG_URL, caption=caption, reply_markup=reply_markup
         )
 
 
@@ -39,11 +43,11 @@ async def _edit_media_or_reply_with_video(cbq, caption: str, reply_markup):
 async def open_stats(client, message: Message, _):
     is_sudo = message.from_user and (message.from_user.id in SUDOERS)
     keyboard = build_stats_keyboard(_, is_sudo)
-    await message.reply_video(
-        video=config.STATS_VID_URL,
-        caption=_["gstats_2"].format(app.mention),
-        reply_markup=keyboard,
-    )
+    await message.reply_photo(
+    photo=config.STATS_IMG_URL,
+    caption=_["gstats_2"].format(app.mention),
+    reply_markup=keyboard,
+)
 
 
 @app.on_callback_query(filters.regex(f"^{StatsCallbacks.BACK}$") & ~BANNED_USERS)
@@ -75,7 +79,7 @@ async def handle_show_overview(client, callback_query, _):
         config.AUTO_LEAVING_ASSISTANT,
         config.DURATION_LIMIT_MIN,
     )
-    await _edit_media_or_reply_with_video(callback_query, caption, back_keyboard)
+    await _edit_media_or_reply_with_photo(callback_query, caption, back_keyboard)
 
 
 @app.on_callback_query(filters.regex(f"^{StatsCallbacks.SHOW_BOT_STATS}$") & ~BANNED_USERS)
@@ -134,5 +138,4 @@ async def handle_show_bot_stats(client, callback_query, _):
         collections,
         objects,
     )
-    await _edit_media_or_reply_with_video(callback_query, caption, back_keyboard)
-    
+    await _edit_media_or_reply_with_photo(callback_query, caption, back_keyboard)
