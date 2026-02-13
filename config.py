@@ -8,8 +8,8 @@ load_dotenv()
 
 # ── Core bot config ────────────────────────────────────────────────────────────
 # FIXED: Removed getenv wrapper for hardcoded integers
-API_ID = 33632598
-API_HASH = "f5845a1c5a154e4e13747006226e0875"
+API_ID = 39975654
+API_HASH = "1484257bd2a56c23480d4e00d6e1e8bc"
 BOT_TOKEN = "8472471237:AAEeBmQDsMwnoaMDWY0fvAzzXZlOl9qi-Ts"
 
 # FIXED: Added missing parenthesis and removed getenv wrapper
@@ -66,7 +66,7 @@ SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "22b6125bfe224587b722d6815002db2
 SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "c9c63c6fbf2f467c8bc68624851e9773")
 
 # ── Session strings ─────────────────────────────────────────────────
-STRING1 = "BQIBMVYACjhSJzL7UNiJX_jABh82eGxmxXlwzQNhsWTgS_Zn_GaGvs0o2B4znAwhv5xmqVIpgrME3x81tiRORoubG30K8IROMoMLqrMnMlk5k2q-x56AU4dINknxKzTDpRCllgupojfvEQEBI1OCUY9fvCO_9xp6lWOGkw7kmj8GDVDt_ynRdOO3sbBTGUNn7G56GD79zkhR6BRw7espzyt1Hm0yXQZDJEaBGREMVbadGnp8FWdxffLFxQbKNJHwu4veAvfLJeioSyar2zpj3dSsd2FE_zvfDwNLW0Urz9lxXF5_iudf77avLRAXmkkLk__uEpiBAUeXg01-NKAEc6KJ0z4jyAAAAAH5ykcxAA"
+STRING1 = "BQJh-uYAVOFvbXK_dVfpoOB8p1p23WGA22qf0xgjh79pTWqFWp4Yl_4F_nGqdaxSAXTedoPvfmm_l7Fwg6dMhpoM8Aj_Qp_at7ZGawJgIxuKwZ5J6bUhq8G_feTvP98Db1VWd0HtcomxDc9UX0jbg4RN22n9mR81wNzNjCUH3lKNyFS7WQf4voIWMhcVkq-G8pYafCnCHQKZJL126vwosBkbFsxadGrmPnHjBEtnWpGyvQKl4EBI5NUHYtr9b5Q19BFCkC_9C6DYcKraV10YT8o_zEMKwo66NrFTIO9_8HVXanPIR52XY4FCtqJkbIR5zF2NnpV9sT4bDNrXzWBaFNg-Tsoq1AAAAAH5ykcxAA"
 STRING2 = getenv("STRING_SESSION2")
 STRING3 = getenv("STRING_SESSION3")
 STRING4 = getenv("STRING_SESSION4")
