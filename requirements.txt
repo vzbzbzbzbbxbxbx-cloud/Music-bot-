@@ -1,4 +1,4 @@
-pyrogram @ git+https://github.com/TelegramPlayground/pyrogram
+pyrogfork @ git+https://github.com/TelegramPlayground/pyrogram.git
 tgcrypto==1.2.5
 
 py-tgcalls==2.0.6
