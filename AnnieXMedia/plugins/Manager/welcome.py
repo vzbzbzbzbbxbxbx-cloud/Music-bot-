@@ -2,7 +2,6 @@
 from PIL import ImageFilter
 import os
 import asyncio
-from functools import lru_cache
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import filters, enums
 from pyrogram.types import Message, ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
@@ -10,9 +9,12 @@ from pyrogram.errors import TopicClosed, PeerIdInvalid, ChannelPrivate, Slowmode
 from AnnieXMedia import app
 from AnnieXMedia.mongo.welcomedb import is_on, set_state, bump, cool, auto_on
 
-BG_PATH = "AnnieXMedia/assets/annie/welcome2.png"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+BG_PATH = str(BASE_DIR / "assets" / "annie" / "welcome2.png")
 FALLBACK_PIC = "AnnieXMedia/assets/upic.png"
-FONT_PATH = "AnnieXMedia/assets/annie/Arimo.ttf"
+FONT_PATH = str(BASE_DIR / "assets" / "default.ttf")
 
 BTN_VIEW = "๏ ᴠɪᴇᴡ ɴᴇᴡ ᴍᴇᴍʙᴇʀ ๏"
 BTN_ADD = "๏ ᴋɪᴅɴᴀᴘ ᴍᴇ ๏"
@@ -65,7 +67,7 @@ def build_pic(av, fn, uid, un):
 
     # background
     with open(BG_PATH, "rb") as f:
-    bg = Image.open(f).copy().convert("RGBA")
+        bg = Image.open(f).copy().convert("RGBA")
 
     W, H = bg.size
 
@@ -107,7 +109,7 @@ def build_pic(av, fn, uid, un):
     draw.text(((W-iw)/2, H-140), id_text, font=id_font, fill=(200,200,200))
 
     import time
-path = f"downloads/welcome_{uid}_{int(time.time())}.png"
+    path = f"downloads/welcome_{uid}_{int(time.time())}.png"
     bg.save(path, quality=95)
     return path
 
@@ -219,4 +221,3 @@ async def welcome(client, update: ChatMemberUpdated):
 
     asyncio.create_task(cleanup(avatar))
     asyncio.create_task(cleanup(img))
-    
