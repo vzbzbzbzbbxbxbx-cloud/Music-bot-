@@ -16,7 +16,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN python -m pip install --upgrade pip && \
-    python -m pip install --no-cache-dir -r requirements.txt && \
+    RUN python -m pip install --no-cache-dir --upgrade -r requirements.txt && \
     python -m pip install --no-deps git+https://github.com/CertifiedCoders/youtube-search-python
 
 COPY . .
