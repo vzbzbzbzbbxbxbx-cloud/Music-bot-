@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By Certified Coders © 2025
 from motor.motor_asyncio import AsyncIOMotorClient
 from config import MONGO_DB_URI
 from ..logging import LOGGER
@@ -12,3 +12,4 @@ try:
 except Exception as e:
     LOGGER(__name__).error(f"Failed to connect to your Mongo Database: {e}")
     exit()
+    
