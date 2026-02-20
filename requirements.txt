@@ -1,4 +1,4 @@
-pyrogram==2.0.106
+pyrogram @ git+https://github.com/TelegramPlayground/pyrogram
 tgcrypto==1.2.5
 
 py-tgcalls==2.0.6
