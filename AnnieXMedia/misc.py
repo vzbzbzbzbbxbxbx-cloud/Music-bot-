@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By Certified Coders © 2025
 import socket
 import time
 
@@ -46,3 +46,4 @@ def heroku():
     global HAPP
     HAPP = None
     LOGGER(__name__).info("Heroku system disabled (Railway mode)")
+    
