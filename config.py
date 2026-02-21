@@ -7,22 +7,19 @@ from pyrogram import filters
 load_dotenv()
 
 # ── Core bot config ────────────────────────────────────────────────────────────
-# FIXED: Removed getenv wrapper for hardcoded integers
-API_ID = 39975654
-API_HASH = "1484257bd2a56c23480d4e00d6e1e8bc"
-BOT_TOKEN = "8472471237:AAEeBmQDsMwnoaMDWY0fvAzzXZlOl9qi-Ts"
-
-# FIXED: Added missing parenthesis and removed getenv wrapper
-OWNER_ID = 8368957390
+API_ID = int(getenv("API_ID", "0"))
+API_HASH = getenv("API_HASH", "")
+BOT_TOKEN = getenv("BOT_TOKEN", "")
+OWNER_ID = int(getenv("OWNER_ID", "0"))
 OWNER_USERNAME = "@DoraemonBro"
 BOT_USERNAME = "@Shindoraxmusic_bot"
 BOT_NAME = "˹𝙎𝙃𝙄𝙉𝘿𝙊𝙍𝘼 ✘ 𝙈𝙐𝙎𝙄𝘾˼ ♪"
 ASSUSERNAME = "shindoraxmusic"
 
 # ── Database & logging ─────────────────────────────────────────────────────────
-MONGO_DB_URI = "mongodb+srv://zobayerhassan610_db_user:zQ7mobv6CmGDCLwC@cluster0.ikiff6i.mongodb.net/?appName=Cluster0"
+MONGO_DB_URI = getenv("MONGO_DB_URI", "")
 # FIXED: Added missing parenthesis
-LOGGER_ID = -1003830937954
+LOGGER_ID = int(getenv("LOGGER_ID", "0"))
 
 # ── Limits ──────────────────────────────────────────────────────────────
 # Note: getenv is okay here if you have defaults, but kept as strings for safety then cast to int
@@ -66,11 +63,11 @@ SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "22b6125bfe224587b722d6815002db2
 SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "c9c63c6fbf2f467c8bc68624851e9773")
 
 # ── Session strings ─────────────────────────────────────────────────
-STRING1 = "BQJh-uYAVOFvbXK_dVfpoOB8p1p23WGA22qf0xgjh79pTWqFWp4Yl_4F_nGqdaxSAXTedoPvfmm_l7Fwg6dMhpoM8Aj_Qp_at7ZGawJgIxuKwZ5J6bUhq8G_feTvP98Db1VWd0HtcomxDc9UX0jbg4RN22n9mR81wNzNjCUH3lKNyFS7WQf4voIWMhcVkq-G8pYafCnCHQKZJL126vwosBkbFsxadGrmPnHjBEtnWpGyvQKl4EBI5NUHYtr9b5Q19BFCkC_9C6DYcKraV10YT8o_zEMKwo66NrFTIO9_8HVXanPIR52XY4FCtqJkbIR5zF2NnpV9sT4bDNrXzWBaFNg-Tsoq1AAAAAH5ykcxAA"
-STRING2 = getenv("STRING_SESSION2")
-STRING3 = getenv("STRING_SESSION3")
-STRING4 = getenv("STRING_SESSION4")
-STRING5 = getenv("STRING_SESSION5")
+STRING1 = getenv("STRING1") or getenv("STRING_SESSION") or getenv("STRING_SESSION1")
+STRING2 = getenv("STRING2") or getenv("STRING_SESSION2")
+STRING3 = getenv("STRING3") or getenv("STRING_SESSION3")
+STRING4 = getenv("STRING4") or getenv("STRING_SESSION4")
+STRING5 = getenv("STRING5") or getenv("STRING_SESSION5")
 
 # ── Media assets ───────────────────────────────────────────────────────────────
 START_VIDS = [
