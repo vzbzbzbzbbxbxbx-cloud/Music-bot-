@@ -5,10 +5,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      git ffmpeg curl unzip build-essential && \
+      git ffmpeg curl build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Deno install
+# Deno install (only if your project really uses deno)
 RUN curl -fsSL https://deno.land/install.sh | sh && \
     ln -s /root/.deno/bin/deno /usr/local/bin/deno
 
