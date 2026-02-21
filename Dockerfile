@@ -8,10 +8,6 @@ RUN apt-get update && \
       git ffmpeg curl build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Deno install (only if your project really uses deno)
-RUN curl -fsSL https://deno.land/install.sh | sh && \
-    ln -s /root/.deno/bin/deno /usr/local/bin/deno
-
 WORKDIR /app
 
 COPY requirements.txt .
