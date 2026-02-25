@@ -10,7 +10,7 @@ from typing import Dict, List, Optional, Tuple, Union
 import yt_dlp
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
-from youtubesearchpython.aio import VideosSearch, Playlist
+from youtubesearchpython import VideosSearch, Playlist
 
 from AnnieXMedia.utils.cookie_handler import COOKIE_PATH
 from AnnieXMedia.utils.database import is_on_off
