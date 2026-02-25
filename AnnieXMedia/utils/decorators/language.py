@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 from AnnieXMedia import app
 from config import SUPPORT_CHAT
 from AnnieXMedia.misc import SUDOERS
@@ -57,3 +57,4 @@ def LanguageStart(mystic):
         return await mystic(_, message, language)
 
     return wrapper
+    
