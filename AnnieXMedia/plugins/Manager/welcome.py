@@ -1,7 +1,7 @@
-# Authored By Certified Coders © 2025
-from PIL import ImageFilter
+# Authored By DoraemonBro © 2026
 import os
 import asyncio
+from functools import lru_cache
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import filters, enums
 from pyrogram.types import Message, ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
@@ -9,12 +9,9 @@ from pyrogram.errors import TopicClosed, PeerIdInvalid, ChannelPrivate, Slowmode
 from AnnieXMedia import app
 from AnnieXMedia.mongo.welcomedb import is_on, set_state, bump, cool, auto_on
 
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parents[2]
-BG_PATH = str(BASE_DIR / "assets" / "annie" / "welcome2.png")
+BG_PATH = "AnnieXMedia/assets/annie/welcome.png"
 FALLBACK_PIC = "AnnieXMedia/assets/upic.png"
-FONT_PATH = str(BASE_DIR / "assets" / "default.ttf")
+FONT_PATH = "AnnieXMedia/assets/annie/Arimo.ttf"
 
 BTN_VIEW = "๏ ᴠɪᴇᴡ ɴᴇᴡ ᴍᴇᴍʙᴇʀ ๏"
 BTN_ADD = "๏ ᴋɪᴅɴᴀᴘ ᴍᴇ ๏"
@@ -38,9 +35,11 @@ WELCOME_LIMIT = 5
 
 last_messages = {}
 
+@lru_cache(maxsize=1)
 def cached_bg():
     return Image.open(BG_PATH).convert("RGBA")
 
+@lru_cache(maxsize=2)
 def cached_font(size=65):
     return ImageFont.truetype(FONT_PATH, size)
 
@@ -51,67 +50,25 @@ def circle(im, size=(835, 839)):
     im.putalpha(mask)
     return im
 
-def fit_text(draw, text, font_path, max_width, start=70):
-    size = start
-    while size > 20:
-        font = ImageFont.truetype(font_path, size)
-        w = draw.textlength(text, font=font)
-        if w <= max_width:
-            return font
-        size -= 2
-    return ImageFont.truetype(font_path, 20)
-
-
 def build_pic(av, fn, uid, un):
     os.makedirs("downloads", exist_ok=True)
-
-    # background
-    with open(BG_PATH, "rb") as f:
-        bg = Image.open(f).copy().convert("RGBA")
-
-    W, H = bg.size
-
-    # ---- GLASS PANEL ----
-    panel = Image.new("RGBA", bg.size, (0,0,0,0))
-    pd = ImageDraw.Draw(panel)
-    panel_height = 420
-    pd.rounded_rectangle(
-        [(120, H-500), (W-120, H-80)],
-        radius=45,
-        fill=(15, 18, 30, 170)
-    )
-
-    bg = Image.alpha_composite(bg, panel)
-
-    # ---- AVATAR ----
-    avatar = circle(Image.open(av), (380, 380))
-    ax = W//2 - 190
-    ay = H-690
-    bg.paste(avatar, (ax, ay), avatar)
-
-    draw = ImageDraw.Draw(bg)
-
-    # ---- NAME (AUTO FIT) ----
-    name_font = fit_text(draw, fn, FONT_PATH, 900, 75)
-    name_w = draw.textlength(fn, font=name_font)
-    draw.text(((W-name_w)/2, H-270), fn, font=name_font, fill=(255,255,255))
-
-    # ---- USERNAME ----
-    username = f"@{un}" if un != "No Username" else "No Username"
-    user_font = ImageFont.truetype(FONT_PATH, 45)
-    uw = draw.textlength(username, font=user_font)
-    draw.text(((W-uw)/2, H-200), username, font=user_font, fill=(170,190,255))
-
-    # ---- ID ----
-    id_text = f"ID : {uid}"
-    id_font = ImageFont.truetype(FONT_PATH, 38)
-    iw = draw.textlength(id_text, font=id_font)
-    draw.text(((W-iw)/2, H-140), id_text, font=id_font, fill=(200,200,200))
-
-    import time
-    path = f"downloads/welcome_{uid}_{int(time.time())}.png"
-    bg.save(path, quality=95)
+    bg = cached_bg().copy()
+    avatar = circle(Image.open(av))
+    bg.paste(avatar, (1887, 390), avatar)
+    d = ImageDraw.Draw(bg)
+    f = cached_font()
+    d.text((421, 715), fn, fill=(242, 242, 242), font=f)
+    d.text((270, 1005), str(uid), fill=(242, 242, 242), font=f)
+    d.text((570, 1308), un, fill=(242, 242, 242), font=f)
+    path = f"downloads/welcome_{uid}.png"
+    bg.save(path)
     return path
+
+async def safe_send(func, *args, **kwargs):
+    try:
+        return await func(*args, **kwargs)
+    except:
+        return None
 
 @app.on_message(filters.command("welcome") & filters.group)
 async def toggle(client, m: Message):
@@ -221,3 +178,4 @@ async def welcome(client, update: ChatMemberUpdated):
 
     asyncio.create_task(cleanup(avatar))
     asyncio.create_task(cleanup(img))
+        
