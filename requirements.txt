@@ -5,7 +5,7 @@ pyrotgfork @ git+https://github.com/TelegramPlayground/pyrogram.git
 tgcrypto==1.2.5
 
 # --- Voice chat stack ---
-py-tgcalls==2.0.6
+py-tgcalls==2.2.11
 
 # --- Networking / downloads ---
 aiohttp==3.9.5
