@@ -1,27 +1,32 @@
-# Authored By Certified Coders © 2025
-from AnnieXMedia.core.bot import MusicBotClient
-from AnnieXMedia.core.dir import StorageManager
-from AnnieXMedia.core.git import git
-from AnnieXMedia.core.userbot import Userbot
-from AnnieXMedia.misc import dbb, heroku
+# Authored By DoraemonBro © 2026
+"""Shindora x Music - Lean Runtime Exports
+
+This module intentionally avoids heavy side-effects at import time.
+Use `bootstrap()` in __main__ to initialize directories and in-memory state.
+"""
 
 from .logging import LOGGER
+from AnnieXMedia.core.bot import MusicBotClient
+from AnnieXMedia.core.userbot import Userbot
 
-StorageManager()
-git()
-dbb()
-heroku()
+# Lightweight platform APIs used by streaming core
+from AnnieXMedia.platforms.Telegram import TeleAPI
+from AnnieXMedia.platforms.Youtube import YouTubeAPI
+from AnnieXMedia.platforms.Carbon import CarbonAPI
 
 app = MusicBotClient()
 userbot = Userbot()
 
-
-from .platforms import *
-
-Apple = AppleAPI()
-Carbon = CarbonAPI()
-SoundCloud = SoundAPI()
-Spotify = SpotifyAPI()
-Resso = RessoAPI()
 Telegram = TeleAPI()
 YouTube = YouTubeAPI()
+Carbon = CarbonAPI()
+
+
+def bootstrap() -> None:
+    """Initialize required folders and in-memory state."""
+    from AnnieXMedia.core.dir import StorageManager
+    from AnnieXMedia.misc import dbb
+
+    StorageManager()
+    dbb()
+  
