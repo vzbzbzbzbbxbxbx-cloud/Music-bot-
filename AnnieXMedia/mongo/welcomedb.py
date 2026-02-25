@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 from AnnieXMedia.core.mongo import mongodb
@@ -68,3 +68,4 @@ async def auto_on(chat_id: int) -> bool:
         )
         return True
     return False
+    
