@@ -6,7 +6,7 @@ ntgcalls>=2.0.6
 
 # Async + HTTP
 aiohttp==3.10.11
-aiofiles==24.1.0
+aiofiles==25.1.0
 httpx[http2]>=0.28.1
 
 # DB + env
