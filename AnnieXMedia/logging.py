@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -29,3 +29,4 @@ for lib, level in [
 
 def LOGGER(name: str) -> logging.Logger:
     return logging.getLogger(name)
+    
