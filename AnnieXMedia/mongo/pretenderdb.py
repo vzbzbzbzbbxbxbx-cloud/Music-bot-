@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 from AnnieXMedia.core.mongo import mongodb
 
 impdb = mongodb["pretender"]
@@ -27,3 +27,4 @@ async def impo_on(chat_id: int):
 
 async def impo_off(chat_id: int):
     await impdb.delete_one({"chat_id_toggle": chat_id})
+    
