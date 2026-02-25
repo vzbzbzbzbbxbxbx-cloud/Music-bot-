@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 import os
 from random import randint
 from typing import Union
@@ -449,3 +449,4 @@ async def stream(
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
             await mystic.delete()
+                
