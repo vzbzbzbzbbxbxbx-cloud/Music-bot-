@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 from AnnieXMedia.core.mongo import mongodb
 
 coupledb = mongodb["couple"]
@@ -38,3 +38,4 @@ async def save_couple(cid: int, date: str, couple: dict, img_path: str):
         {"$set": {"couple": couple_map, "img": img_field}},
         upsert=True,
     )
+    
