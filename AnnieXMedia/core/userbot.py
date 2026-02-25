@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 from pyrogram import Client
 
 import config
@@ -8,48 +8,41 @@ from ..logging import LOGGER
 assistants = []
 assistantids = []
 
-GROUPS_TO_JOIN = [
-    "CertifiedDiscussion",
-    "CertifiedCoders",
-    "CertifiedCodes",
-    "CertifiedDevs",
-    "CertifiedNetwork",
-]
-
+GROUPS_TO_JOIN = []
 
 # Initialize userbots
 class Userbot:
     def __init__(self):
         self.one = Client(
-            "AnnieAssis1",
+            "ShindoraAssis1",
             config.API_ID,
             config.API_HASH,
             session_string=str(config.STRING1),
             no_updates=True,
         )
         self.two = Client(
-            "AnnieAssis2",
+            "ShindoraAssis2",
             config.API_ID,
             config.API_HASH,
             session_string=str(config.STRING2),
             no_updates=True,
         )
         self.three = Client(
-            "AnnieAssis3",
+            "ShindoraAssis3",
             config.API_ID,
             config.API_HASH,
             session_string=str(config.STRING3),
             no_updates=True,
         )
         self.four = Client(
-            "AnnieAssis4",
+            "ShindoraAssis4",
             config.API_ID,
             config.API_HASH,
             session_string=str(config.STRING4),
             no_updates=True,
         )
         self.five = Client(
-            "AnnieAssis5",
+            "ShindoraAssis5",
             config.API_ID,
             config.API_HASH,
             session_string=str(config.STRING5),
@@ -79,13 +72,13 @@ class Userbot:
 
             try:
                 await client.send_message(
-                    config.LOGGER_ID, f"Annie's Assistant {index} Started"
+                    config.LOGGER_ID, f"Shindora Assistant {index} Started"
                 )
             except Exception:
                 LOGGER(__name__).error(
                     f"Assistant {index} can't access the log group. Check permissions!"
                 )
-                exit()
+                return
 
             me = await client.get_me()
             client.id, client.name, client.username = me.id, me.first_name, me.username
@@ -97,7 +90,7 @@ class Userbot:
             LOGGER(__name__).error(f"Failed to start Assistant {index}: {e}")
 
     async def start(self):
-        LOGGER(__name__).info("Starting Annie's Assistants...")
+        LOGGER(__name__).info("Starting Shindora Assistants...")
         await self.start_assistant(self.one, 1)
         await self.start_assistant(self.two, 2)
         await self.start_assistant(self.three, 3)
@@ -119,3 +112,4 @@ class Userbot:
                 await self.five.stop()
         except Exception as e:
             LOGGER(__name__).error(f"Error while stopping assistants: {e}")
+                              
