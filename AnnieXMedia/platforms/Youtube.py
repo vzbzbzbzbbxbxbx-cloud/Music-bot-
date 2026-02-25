@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 import asyncio
 import contextlib
 import json
@@ -402,3 +402,4 @@ class YouTubeAPI:
 
         p = await yt_dlp_download(link, type="audio", title=await self.title(link))
         return (p, True) if p else (None, None)
+        
