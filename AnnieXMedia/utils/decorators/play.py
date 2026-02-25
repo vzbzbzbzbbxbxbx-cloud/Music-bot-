@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 import asyncio
 
 from pyrogram.enums import ChatMemberStatus
@@ -224,3 +224,4 @@ def PlayWrapper(command):
         )
 
     return wrapper
+                        
