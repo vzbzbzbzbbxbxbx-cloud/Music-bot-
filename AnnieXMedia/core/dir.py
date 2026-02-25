@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 import os
 from ..logging import LOGGER
 
@@ -16,3 +16,4 @@ def StorageManager():
     os.makedirs(BACKUP_DIR, exist_ok=True)
 
     LOGGER(__name__).info("Directories Updated.")
+    
