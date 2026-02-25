@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 import sys
 from pyrogram import Client, errors
 from pyrogram.enums import ChatMemberStatus
@@ -10,12 +10,12 @@ from ..logging import LOGGER
 class MusicBotClient(Client):
     def __init__(self):
         super().__init__(
-            name="AnnieXMusic",
+            name="ShindoraXMusic",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
-            workers=48,
-            max_concurrent_transmissions=7,
+            workers=16,
+            max_concurrent_transmissions=4,
         )
         LOGGER(__name__).info("Bot client initialized.")
 
@@ -25,6 +25,13 @@ class MusicBotClient(Client):
         self.username, self.id = me.username, me.id
         self.name = f"{me.first_name} {me.last_name or ''}".strip()
         self.mention = me.mention
+
+        # LOGGER_ID is optional. If not set, bot will run without log chat.
+        if not getattr(config, 'LOGGER_ID', None) or int(getattr(config, 'LOGGER_ID', 0)) == 0:
+            LOGGER(__name__).warning('LOGGER_ID not set - running without log group/channel checks.')
+            LOGGER(__name__).info(f"✅ Music Bot started as {self.name} (@{self.username})")
+            return
+
 
         try:
             await self.send_message(
@@ -53,3 +60,4 @@ class MusicBotClient(Client):
             sys.exit()
 
         LOGGER(__name__).info(f"✅ Music Bot started as {self.name} (@{self.username})")
+        
