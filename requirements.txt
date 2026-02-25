@@ -10,7 +10,7 @@ aiofiles==24.1.0
 httpx[http2]>=0.28.1
 
 # DB + env
-motor==3.6.0
+motor==3.7.1
 python-dotenv==1.0.1
 
 # Utilities
