@@ -1,4 +1,4 @@
-﻿# Authored By Certified Coders © 2025
+# Authored By DoraemonBro © 2026
 n = "\n"
 w = " "
 
@@ -28,3 +28,4 @@ def section(
                 )
             )
     return text
+    
